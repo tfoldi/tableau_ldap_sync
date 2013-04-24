@@ -1,0 +1,15 @@
+ldap:
+  host: foobar.bar.foo
+  port: 12345
+  dn: foo=bar
+  sso: 12345678
+  password: 
+
+ad:
+  domain: AUTHDOMAIN
+
+tableau:
+  url: http://server
+  user: admin
+  password: secret12
+
