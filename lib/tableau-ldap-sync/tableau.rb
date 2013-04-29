@@ -41,7 +41,7 @@ module TableauLDAPSync
 
       # logon to server with encrypted password
       response = post('/manual/auth/login.xml', { 
-		  'authenticity_token' => authenticity_token, 
+          'authenticity_token' => authenticity_token, 
           'crypted' => assymmetric_encrypt(pass,key),
           'username' => user
         } 

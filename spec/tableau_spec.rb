@@ -35,23 +35,23 @@ module TableauLDAPSync
      
 
       it "should add two users" do
-	    p @tableau.authenticity_token
+        p @tableau.authenticity_token
         getpage = @tableau.post('/manual/create/users',  {
-			'authenticity_token' => @tableau.authenticity_token,
-			'step' => 1,
-			'name' => 'GEINDSYS-AMER\\502011686',
-			'level' => 'interactor'
-		})
+          'authenticity_token' => @tableau.authenticity_token,
+          'step' => 1,
+          'name' => 'GEINDSYS-AMER\\502011686',
+          'level' => 'interactor'
+        })
         p getpage.body        
-		p @tableau.authenticity_token
+        p @tableau.authenticity_token
         getpage = @tableau.post('/manual/create/users',  {
-			'authenticity_token' => @tableau.authenticity_token,
-			'step' => 1,
-			'name' => 'GEINDSYS-AMER\\501863562',
-			'level' => 'interactor'
-		})
+          'authenticity_token' => @tableau.authenticity_token,
+          'step' => 1,
+          'name' => 'GEINDSYS-AMER\\501863562',
+          'level' => 'interactor'
+        })
   
-	  end      
+      end      
     
       it "should create a user" do
         # 502011686
