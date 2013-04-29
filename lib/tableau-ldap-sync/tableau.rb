@@ -6,11 +6,11 @@ require 'rexml/document'
 module TableauLDAPSync
 
   class Tableau
+	include TableauLDAPSync
     
     def initialize(server_url)
       proxy = ENV['HTTP_PROXY']
       @http_client = HTTPClient.new(proxy)
-      @http_client.set_cookie_store("cookie.dat")
       @http_client.debug_dev = STDOUT if $DEBUG
       
       @server_url = server_url

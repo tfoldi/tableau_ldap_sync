@@ -16,3 +16,4 @@ end
 TableauLDAPSync.load_configuration
 
 require "tableau-ldap-sync/tableau"
+require "tableau-ldap-sync/ldapsrc"
