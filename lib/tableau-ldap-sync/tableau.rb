@@ -1,5 +1,7 @@
 require "tableau-ldap-sync"
 require 'httpclient'
+require 'uri'
+require 'rexml/document' 
 
 module TableauLDAPSync
 
@@ -14,11 +16,15 @@ module TableauLDAPSync
       @server_url = server_url
     end
     
+    def authenticity_token
+      @authenticity_token.text
+    end
+    
     def login(user, pass)
       key = OpenSSL::PKey::RSA.new
       
       # invoke /auth.xml on server
-      response = @http_client.get( tableau_url_with '/auth.xml' )
+      response = get( '/manual/auth.xml' )
       
       # parse returned XML
       doc = REXML::Document.new( response.body )
@@ -27,21 +33,21 @@ module TableauLDAPSync
       authinfo = doc.elements[1, 'authinfo']
       modulus = authinfo.elements[1, 'modulus']
       exponent = authinfo.elements[1, 'exponent']
-      authenticity_token = authinfo.elements[1, 'authenticity_token']
+      @authenticity_token = authinfo.elements[1, 'authenticity_token']
       
       # fill RSA key information
       key.n = modulus.text.to_i(16)
       key.e = exponent.text.to_i(16)
 
       # logon to server with encrypted password
-      response = @http_client.post( tableau_url_with('/auth/login.xml'), 
-        { 'authenticity_token' => authenticity_token.text, 
+      response = post('/manual/auth/login.xml', { 
+		  'authenticity_token' => authenticity_token, 
           'crypted' => assymmetric_encrypt(pass,key),
           'username' => user
         } 
       )
       
-      @http_client.save_cookie_store
+      @authenticity_token = REXML::Document.new( response.body ).root.elements['authenticity_token' ]
     end
     
     def tableau_url_with(path)
