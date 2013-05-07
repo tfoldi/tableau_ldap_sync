@@ -28,7 +28,7 @@ module TableauLDAPSync
 
       it "should get the list of users in group Admins" do
         users =  @tableau.get( "/users.xml", {'fe_group' => 'local\Pricing Analytics' })
-        doc = REXML::Document.new( users.body )
+        doc = REXML::Document.new( users.body ) 
         #doc.elements.each("users/user/name") { |element| print element.text }
         #doc.elements.each("users/user/name") { |element| element.text.should == 'local\admin' }
       end
@@ -53,6 +53,19 @@ module TableauLDAPSync
   
       end      
     
+      it "should add a user to Test group" do
+        ret = @tableau.post( "/manual/upload_add_or_remove_users/groups", { 
+          'filename' => 'group.csv',
+          'uploaded_file' => "501911688\n" ,
+          'group' => 'Test',
+          'format' => 'xml',
+          'with_transaction' => 'true ',
+          'authenticity_token' => @tableau.authenticity_token
+          } 
+         )      
+        print ret.body         
+      end
+    
       it "should create a user" do
         # 502011686
         ret = @tableau.post( "/manual/upload_action/system_users", { 
@@ -63,7 +76,7 @@ module TableauLDAPSync
           'admin' => 'none',
           'format' => 'xml',
           'publisher' => 'false',
-          'with_transaction' => 'false',
+          'with_transaction' => 'true ',
           'authenticity_token' => @tableau.authenticity_token
           } 
          )

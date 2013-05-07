@@ -1,6 +1,8 @@
 require "yaml"
+require "logger"
 
 module TableauLDAPSync
+  
 
   def load_configuration
     @config = YAML.load_file "config/config.yml" 
@@ -10,6 +12,11 @@ module TableauLDAPSync
     @config
   end
   
+  def logger
+    @logger = Logger.new(STDOUT) if @logger.nil?
+    @logger
+  end
+   
   extend self  
 end
 

@@ -6,7 +6,7 @@ require 'rexml/document'
 module TableauLDAPSync
 
   class Tableau
-	include TableauLDAPSync
+    include TableauLDAPSync
     
     def initialize(server_url)
       proxy = ENV['HTTP_PROXY']
@@ -46,8 +46,18 @@ module TableauLDAPSync
           'username' => user
         } 
       )
-      
+
       @authenticity_token = REXML::Document.new( response.body ).root.elements['authenticity_token' ]
+    end
+    
+    def create_user(user,domain = TableauLDAPSync.config["ad"]["domain"])
+      logger.debug "Create user #{user}@#{domain} in tableau if does not exists"
+      getpage = post('/manual/create/users',  {
+        'authenticity_token' => authenticity_token,
+        'step' => 1,
+        'name' => "#{domain}\\#{user}",
+        'level' => 'interactor'
+      })
     end
     
     def tableau_url_with(path)
