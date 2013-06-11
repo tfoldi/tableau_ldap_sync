@@ -13,3 +13,4 @@ tableau:
   user: admin
   password: secret12
 
+group_mapping: [ { ldap: ldap_group, tableau: Tableau Group } ]
