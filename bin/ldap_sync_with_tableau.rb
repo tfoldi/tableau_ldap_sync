@@ -1,3 +1,7 @@
-require "tableau-ldap-sync"
+require "tableau_ldap_sync" 
 
-print "A\n"
+module TableauLDAPSync
+  ts = TableauSync.new
+  ts.synchronize
+end
+

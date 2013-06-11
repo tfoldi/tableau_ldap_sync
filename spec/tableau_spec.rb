@@ -1,4 +1,4 @@
-require "tableau-ldap-sync"
+require "tableau_ldap_sync"
 
 module TableauLDAPSync
   

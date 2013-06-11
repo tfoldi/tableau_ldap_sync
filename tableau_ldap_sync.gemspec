@@ -2,11 +2,11 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
-  s.name        = "tableau-ldap-sync"
+  s.name        = "tableau_ldap_sync"
   s.version     = "1.0"
   s.authors     = ["Tamas Foldi"]
   s.email       = ["tfoldi@starschema.net"]
-  s.homepage    = "http://jruby-extras.rubyforge.org/jruby-ldap"
+  s.homepage    = "http://starschema.net/"
   s.summary     = "Synchronize LDAP groups with Tableau Server Groups"
   s.description = "Synchronize LDAP groups with Tableau Server Groups"
  

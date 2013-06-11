@@ -1,4 +1,4 @@
-require "tableau-ldap-sync"
+require "tableau_ldap_sync"
 
 describe TableauLDAPSync do
 
@@ -14,8 +14,8 @@ describe TableauLDAPSync do
     TableauLDAPSync.config["group_mapping"].should be_an_instance_of(Array)
     TableauLDAPSync.config["group_mapping"].each do |map| 
       map.should be_an_instance_of(Hash)
-      map.ldap.should be_an_instance_of(String) 
-      map.tableau.should be_an_instance_of(String) 
+      map["ldap"].should be_an_instance_of(String) 
+      map["tableau"].should be_an_instance_of(String) 
     end    
   end
 end
