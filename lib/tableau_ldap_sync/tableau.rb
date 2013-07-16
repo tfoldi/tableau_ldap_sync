@@ -38,6 +38,8 @@ module TableauLDAPSync
     def initialize(server_url)
       proxy = ENV['HTTP_PROXY']
       @http_client = HTTPClient.new(proxy)
+      @http_client.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      @http_client.ssl_config.add_trust_ca File.join('config','cacert.p7s')	 	  
       @http_client.debug_dev = STDOUT if $DEBUG
       
       @server_url = server_url
@@ -52,7 +54,7 @@ module TableauLDAPSync
       
       # invoke /auth.xml on server
       response = get( '/manual/auth.xml' )
-      
+	  
       # parse returned XML
       doc = REXML::Document.new( response.body )
       
@@ -129,7 +131,7 @@ module TableauLDAPSync
   
     # Encrypt test with RSA public key and pack as %.0x hex numbers
     def assymmetric_encrypt(val, public_key)
-      crypt_binary =  public_key.public_encrypt(val)
+      crypt_binary =  public_key.public_encrypt(val.to_s)
       crypt_binary.unpack("H*")
     end
   
