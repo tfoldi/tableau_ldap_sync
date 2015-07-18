@@ -1,6 +1,6 @@
-Tableau LDAP GRoup synchronizer for Tableau Server 8.x 
+Tableau LDAP Group synchronizer for Tableau Server 8.x 
 =================
 
 This application is no longer supported as it was completely rewritten using Tableau 9's REST API. 
 
-New link is: 
+The new project's availability is: https://github.com/starschema/tabsync
